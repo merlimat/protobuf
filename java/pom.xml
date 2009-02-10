@@ -32,20 +32,6 @@
       scm:svn:http://protobuf.googlecode.com/svn/trunk/
     </connection>
   </scm>
-  <!-- this is temporarily copied from the parent pom.  remove this section when that is used -->
-  <distributionManagement>
-    <repository>
-      <id>google-maven-repository</id>
-      <name>Google Maven Repository</name>
-      <url>https://google-maven-repository.googlecode.com/svn/trunk/repository/</url>
-    </repository>
-    <snapshotRepository>
-      <id>google-maven-snapshot-repository</id>
-      <name>Google Maven Snapshot Repository</name>
-      <url>https://google-maven-repository.googlecode.com/svn/trunk/snapshot-repository/</url>
-      <uniqueVersion>true</uniqueVersion>
-    </snapshotRepository>
-  </distributionManagement>
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
