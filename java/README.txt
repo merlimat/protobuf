@@ -22,16 +22,14 @@ rather build without Maven, see the next section.
    You will need to place the protoc executable in ../src.  (If you
    built it yourself, it should already be there.)
 
-3) Run the tests:
-
-     $ mvn test
-
-   If some tests fail, this library may not work correctly on your
-   system.  Continue at your own risk.
-
 4) Install the library into your Maven repository:
 
      $ mvn install
+     
+     Note:  If this command is run from the top-level directory, it
+     will build and instal the latest version of the plugin.
+     Otherwise, Maven will download the latest stable version from
+     the central repository.
 
 5) If you do not use Maven to manage your own build, you can build a
    .jar file to use:

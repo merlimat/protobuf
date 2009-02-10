@@ -4,34 +4,14 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>com.google</groupId>
-    <artifactId>google</artifactId>
-    <version>1</version>
+    <groupId>com.google.protobuf</groupId>
+    <artifactId>protobuf</artifactId>
+    <version>2.0.4-SNAPSHOT</version>
+    <relativePath>../pom.xml</relativePath>
   </parent>
-  <groupId>com.google.protobuf</groupId>
   <artifactId>protobuf-java</artifactId>
-  <version>2.0.4-SNAPSHOT</version>
   <packaging>jar</packaging>
   <name>Protocol Buffer Java API</name>
-  <description>
-    Protocol Buffers are a way of encoding structured data in an efficient yet
-    extensible format.
-  </description>
-  <inceptionYear>2008</inceptionYear>
-  <url>http://code.google.com/p/protobuf</url>
-  <licenses>
-    <license>
-      <name>New BSD license</name>
-      <url>http://www.opensource.org/licenses/bsd-license.php</url>
-      <distribution>repo</distribution>
-    </license>
-  </licenses>
-  <scm>
-    <url>http://code.google.com/p/protobuf/source/browse</url>
-    <connection>
-      scm:svn:http://protobuf.googlecode.com/svn/trunk/
-    </connection>
-  </scm>
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -55,13 +35,6 @@
   <build>
     <plugins>
       <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <source>1.5</source>
-          <target>1.5</target>
-        </configuration>
-      </plugin>
-      <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
           <includes>
@@ -69,55 +42,66 @@
           </includes>
         </configuration>
       </plugin>
-      <plugin>
-        <artifactId>maven-antrun-plugin</artifactId>
+       <plugin>
+        <groupId>com.google.protobuf.tools</groupId>
+        <artifactId>maven-protoc-plugin</artifactId>
         <executions>
-          <execution>
-            <id>generate-sources</id>
-            <phase>generate-sources</phase>
-            <configuration>
-              <tasks>
-                <mkdir dir="target/generated-sources" />
-                <exec executable="../src/protoc">
-                  <arg value="--java_out=target/generated-sources" />
-                  <arg value="--proto_path=../src" />
-                  <arg value="../src/google/protobuf/descriptor.proto" />
-                </exec>
-              </tasks>
-              <sourceRoot>target/generated-sources</sourceRoot>
-            </configuration>
-            <goals>
-              <goal>run</goal>
-            </goals>
-          </execution>
-          <execution>
-            <id>generate-test-sources</id>
-            <phase>generate-test-sources</phase>
-            <configuration>
-              <tasks>
-                <mkdir dir="target/generated-test-sources" />
-                <exec executable="../src/protoc">
-                  <arg value="--java_out=target/generated-test-sources" />
-                  <arg value="--proto_path=../src" />
-                  <arg value="--proto_path=src/test/java" />
-                  <arg value="../src/google/protobuf/unittest.proto" />
-                  <arg value="../src/google/protobuf/unittest_import.proto" />
-                  <arg value="../src/google/protobuf/unittest_mset.proto" />
-                  <arg
-                    value="src/test/java/com/google/protobuf/multiple_files_test.proto" />
-                  <arg
-                    value="../src/google/protobuf/unittest_optimize_for.proto" />
-                  <arg
-                    value="../src/google/protobuf/unittest_custom_options.proto" />
-                </exec>
-              </tasks>
-              <testSourceRoot>target/generated-test-sources</testSourceRoot>
-            </configuration>
-            <goals>
-              <goal>run</goal>
-            </goals>
-          </execution>
+            <execution>
+                <id>generate-sources</id>
+                <goals>
+                    <goal>compile</goal>
+                </goals>
+                <phase>generate-sources</phase>
+                <configuration>
+                    <protoSourceRoot>${basedir}/../src/</protoSourceRoot>
+                    <includes>
+                        <param>google/protobuf/descriptor.proto</param>
+                    </includes>
+                </configuration>
+            </execution>
+            <execution>
+                <id>generate-test-sources-1</id>
+                <goals>
+                    <goal>testCompile</goal>
+                </goals>
+                <phase>generate-test-sources</phase>
+                <configuration>
+                    <protoTestSourceRoot>${basedir}/../src/</protoTestSourceRoot>
+                    <includes>
+                        <param>google/protobuf/unittest*.proto</param>
+                    </includes>
+                </configuration>
+            </execution>
+            <execution>
+                <id>generate-test-sources-2</id>
+                <goals>
+                    <goal>testCompile</goal>
+                </goals>
+                <phase>generate-test-sources</phase>
+                <configuration>
+                    <additionalProtopathElements>
+                        <param>${basedir}/../src/</param>
+                    </additionalProtopathElements>
+                </configuration>
+            </execution>
+            <execution>
+                <id>generate-test-sources-3</id>
+                <goals>
+                    <goal>testCompile</goal>
+                </goals>
+                <phase>generate-test-sources</phase>
+                <configuration>
+                    <additionalProtopathElements>
+                        <param>${basedir}/../src/</param>
+                    </additionalProtopathElements>
+                </configuration>
+            </execution>
         </executions>
+        <configuration>
+            <protocExecutable>
+                ${basedir}/../src/protoc
+            </protocExecutable>
+        </configuration>
       </plugin>
     </plugins>
   </build>
