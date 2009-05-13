@@ -69,7 +69,7 @@ nobase_include_HEADERS =                                       \
 lib_LTLIBRARIES = libprotobuf.la libprotoc.la
 
 libprotobuf_la_LIBADD = $(PTHREAD_LIBS)
-libprotobuf_la_LDFLAGS = -version-info 3:0:0
+libprotobuf_la_LDFLAGS = -version-info 4:0:0
 libprotobuf_la_SOURCES =                                       \
   google/protobuf/stubs/common.cc                              \
   google/protobuf/stubs/once.cc                                \
@@ -107,7 +107,7 @@ libprotobuf_la_SOURCES =                                       \
   google/protobuf/compiler/parser.cc
 
 libprotoc_la_LIBADD = $(PTHREAD_LIBS) libprotobuf.la
-libprotoc_la_LDFLAGS = -version-info 3:0:0
+libprotoc_la_LDFLAGS = -version-info 4:0:0
 libprotoc_la_SOURCES =                                         \
   google/protobuf/compiler/code_generator.cc                   \
   google/protobuf/compiler/command_line_interface.cc           \
