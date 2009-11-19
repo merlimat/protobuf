@@ -1,3 +1,14 @@
+2009-11-18 version 2.2.0a:
+
+  There is probably no reason to install this release if you have arleady
+  installed 2.2.0.
+
+  C++
+  * Bumped binary interface version number, so that installing libprotobuf.so
+    v2.2.0 doesn't break already-compiled binaries that are linked against
+    v2.1.0.  This should have happened as part of the original 2.2.0 release,
+    but somehow was missed.
+
 2009-08-11 version 2.2.0:
 
   C++
