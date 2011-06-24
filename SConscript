@@ -7,7 +7,8 @@ protobuf_sources = [ 'src/google/protobuf/' + x for x in
         generated_message_util.cc message_lite.cc repeated_field.cc 
         wire_format_lite.cc io/coded_stream.cc io/zero_copy_stream.cc
         io/zero_copy_stream_impl_lite.cc '''.split() ]
-protobuf = env.Library( 'protobuf', protobuf_sources )
+protobuf = env.Library( 'protobuf', protobuf_sources, 
+                        CPPPATH='src' )
 
 protoc_extra_sources = [ 'src/google/protobuf/' + x for x in
         '''descriptor.cc io/printer.cc unknown_field_set.cc message.cc 
@@ -32,6 +33,7 @@ protoc_sources = [ 'src/google/protobuf/compiler/' + x for x in
         plugin.pb.cc subprocess.cc'''.split() ] + protoc_extra_sources
 protoc = env.Program( 'protoc', protoc_sources, 
                       LIBS=[protobuf, 'pthread'],
+                      CPPPATH='src',
                       CXXFLAGS='-O0 -g0',
                       CPPFLAGS='-DNDEBUG' )
 
