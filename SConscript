@@ -37,7 +37,7 @@ protoc = env.Program( 'protoc', protoc_sources,
                       CXXFLAGS='-O0 -g0',
                       CPPFLAGS='-DNDEBUG' )
 
-bld = Builder(action = 'libs/protobuf/protoc --cpp_out=src/distmap $SOURCE')
+bld = Builder(action = 'PROTO_DIR=`pwd`/libs/protobuf; pushd `dirname $SOURCE`; PATH=$$PROTO_DIR protoc --cpp_out=./ `basename $SOURCE`; popd')
 env.Append(BUILDERS = {'ProtocolBufferCompiler' : bld})
 
 result = [protobuf, protoc]
